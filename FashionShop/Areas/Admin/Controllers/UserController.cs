@@ -28,7 +28,6 @@ namespace FashionShop.Areas.Admin.Controllers
         [Route("Index")]
         public async Task<IActionResult> Index(string sortOrder, string currentFilter, string searchString, int? pageNumber)
         {
-            ViewData["CurrentSort"] = sortOrder;
             ViewData["NameAccountSortParm"] = sortOrder == "NameAccount" ? "nameaccount_desc" : "NameAccount";
             ViewData["UserNameSortParm"] = sortOrder == "UserName" ? "username_desc" : "UserName";
             ViewData["AddressSortParm"] = sortOrder == "Address" ? "address_desc" : "Address";
