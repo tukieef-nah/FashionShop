@@ -24,7 +24,6 @@ namespace FashionShop.Controllers
         [Route("")]
         public async Task<IActionResult> Index(string sortOrder, string currentFilter, string searchString, int? pageNumber)
 		{
-			ViewData["CurrentSort"] = sortOrder;
 			ViewData["PriceSortParm"] = sortOrder == "Price" ? "price_desc" : "Price";
 
 			ViewData["CurrentFilter"] = searchString;
