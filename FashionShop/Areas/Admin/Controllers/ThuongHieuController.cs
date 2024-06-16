@@ -22,7 +22,6 @@ namespace FashionShop.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> Index(string sortOrder, string currentFilter, string searchString, int? pageNumber)
         {
-            ViewData["CurrentSort"] = sortOrder;
             ViewData["NameSortParm"] = sortOrder == "Name" ? "name_desc" : "Name";
             ViewData["StatusSortParm"] = sortOrder == "Status" ? "status_desc" : "Status";
 
