@@ -50,7 +50,7 @@ namespace FashionShop.Areas.Admin.Controllers
 
             if (!String.IsNullOrEmpty(searchString))
             {
-                users = users.Where(s => s.UserName!.Contains(searchString) && s.NameAccount!.Contains(searchString) && s.PhoneNumber!.Contains(searchString) && s.Email!.Contains(searchString));
+                users = users.Where(s => s.UserName!.Contains(searchString) || s.NameAccount!.Contains(searchString) || s.PhoneNumber!.Contains(searchString) || s.Email!.Contains(searchString));
             }
 
             switch (sortOrder)
