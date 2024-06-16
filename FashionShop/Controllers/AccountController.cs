@@ -208,7 +208,6 @@ namespace FashionShop.Controllers
         [Authorize(Roles = AppRole.User)]
         public async Task<IActionResult> Order( string sortOrder, int? pageNumber)
         {
-            ViewData["CurrentSort"] = sortOrder;
             ViewData["DateSortParm"] = sortOrder == "Date" ? "date_desc" : "Date";
             ViewData["StatusSortParm"] = sortOrder == "Status" ? "status_desc" : "Status";
 
