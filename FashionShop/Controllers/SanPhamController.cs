@@ -19,7 +19,6 @@ namespace FashionShop.Controllers
         [HttpGet]
         public async Task<IActionResult> Index(string sortOrder, string currentFilter, string searchString, int? pageNumber)
         {
-            ViewData["CurrentSort"] = sortOrder;
             ViewData["PriceSortParm"] = sortOrder == "Price" ? "price_desc" : "Price";
 
             if (searchString != null)
