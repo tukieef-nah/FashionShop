@@ -191,6 +191,13 @@ namespace FashionShop.Controllers
 				return NotFound();
 			}
 
+			var orders = _dataContext.Orders.Where(od => od.UserName == user.UserName);
+			OrderModel order = _dataContext.Orders.Where(od => od.UserName == user.UserName).FirstOrDefault();
+			var orderdetails = _dataContext.OrderDetails.Where(od => od.OrderCode == order.OrderCode);
+			_dataContext.OrderDetails.RemoveRange(orderdetails);
+			_dataContext.Orders.RemoveRange(orders);
+			await _dataContext.SaveChangesAsync();
+
 			IdentityResult result = await _userManager.DeleteAsync(user);
 			TempData["success"] = "Đã xóa tài khoản thành công!";
 			return RedirectToAction("Logout");
