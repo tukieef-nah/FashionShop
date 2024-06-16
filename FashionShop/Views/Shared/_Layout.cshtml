@@ -1,0 +1,187 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<title>@ViewData["title"] | Fashion shop</title>
+
+	<link href="~/css/bootstrap.min.css" rel="stylesheet">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.1/css/font-awesome.css" rel="stylesheet">
+	<link href="~/css/prettyPhoto.css" rel="stylesheet">
+	<link href="~/css/price-range.css" rel="stylesheet">
+	<link href="~/css/animate.css" rel="stylesheet">
+	<link href="~/css/main2.css" rel="stylesheet">
+	<link href="~/css/responsive.css" rel="stylesheet">
+
+	<link rel="shortcut icon" href="images/ico/favicon.ico">
+	<link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/ico/apple-touch-icon-144-precomposed.png">
+	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
+	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
+	<link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
+</head>
+
+<body>
+	<!--header-->
+	<header id="header">
+		<!--header-middle-->
+		<div class="header-middle">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-4">
+                        <a asp-controller="Home" asp-action="Index">
+                            <div class="logo pull-left">
+								<img src="~/images/home/Fashion-shop-logo.jpg" width="100px" hegith="100px" alt="Fashion-Shop-logo" />
+							</div>
+							<div class="logo-fs">Fashion shop</div>
+						</a>
+					</div>
+					<div class="col-sm-8">
+						<div class="shop-menu pull-right">
+							<ul class="nav navbar-nav">
+								<style>
+									.navbar-nav li ul.sub-menu li a {
+										background-color: none;
+									}
+								</style>
+								@if (User.Identity?.IsAuthenticated ?? false)
+								{
+									<li><a> Hi! @User.Identity.Name </a></li>
+								}
+                                <li><a asp-controller="GioHang" asp-action="Index"><i class="fa fa-shopping-cart"> Giỏ hàng </i></a></li>
+                                @if (User.Identity?.IsAuthenticated ?? false)
+								{
+									<li class="dropdown">
+										<a asp-controller="Account" asp-action="Info"><i class="fa fa-user"> @User.Identity.Name </i><i class="fa fa-angle-down"></i></a>
+										<ul role="menu" class="sub-menu">
+											<li><a asp-controller="Account" asp-action="Info"><i class="fa fa-user"> Tài khoản của tôi </i></a></li>
+											<li><a asp-controller="Account" asp-action="Order"><i class="fa fa-heart"> Đơn hàng </i></a></li>
+											<li><a asp-controller="Account" asp-action="Logout"><i class="fa fa-sign-out"> Đăng xuất </i> </a></li>
+										</ul>
+									</li>
+                                   
+								}
+								else
+								{
+									<li><a asp-controller="Account" asp-action="Login"><i class="fa fa-sign-in"> Đăng nhập </i></a></li>								
+									<li><a asp-controller="Account" asp-action="Register"><i class="fa fa-pencil-square-o"> Đăng ký </i></a></li>
+								}
+							</ul>
+						</div>
+						<div class="col-sm-12" style="padding-top: 30px">
+							<form asp-controller="SanPham" asp-action="Index" method="get">
+                                <p>
+                                    <div class="search_box pull-right">
+										<input type="text" name="SearchString" placeholder="Tìm kiếm trong shop..." value="@ViewData["CurrentFilter"]" />
+										<button class="btn btn-success" type="submit">Tìm kiếm</button>
+									</div>
+                                </p>
+                            </form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--/header-middle-->
+		<!--header-bottom-->
+		<div class="header-bottom">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-12">
+						<div class="navbar-header">
+							<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+								<span class="sr-only">Toggle navigation</span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+							</button>
+						</div>
+						<div class="mainmenu pull-left">
+							<ul class="nav navbar-nav collapse navbar-collapse">
+								<li><a asp-controller="Home" asp-action="Index"><i class="active fa fa-home"> Home </i></a></li>
+								<li><a asp-controller="SanPham" asp-action="Index"><i class="fa"> Sản phẩm </i></a></li>
+								<li><a asp-controller="Contact" asp-action="Index"><i class="fa"> Liên hệ </i></a></li>
+							</ul>
+						</div>
+					</div>		
+				</div>
+			</div>
+		</div>
+		<!--/header-bottom-->
+	</header>
+	<!--/header-->
+
+
+
+	<section>
+		<div class="container">
+			<div class="row">
+				@Html.Partial("_NotificationPartial")
+				@RenderBody()
+			</div>
+		</div>
+	</section>
+
+
+	<!--Footer-->
+	<footer id="footer">
+		<!--Footer-top-->
+		<div class="footer-top">
+			<div class="container">
+				<div class="companyinfo">
+                    <h2><span>Fahion-shop</span></h2>
+					<i class="text-footer">Những bước chuyển mình để mang đến nhiều hơn nữa những trải nghiệm mới mẻ, đồng hành cùng các bạn trẻ trong hành trình làm mới bản thân mỗi ngày, mỗi một trải nghiệm chính là mỗi bước đi mới trong hành trình chinh phục những thử thách. FS tin rằng, hành trình này sẽ luôn còn tiếp diễn để chúng ta có thể cùng nhau đổi mới. Vì đổi mới là để tốt hơn mỗi ngày!</i>
+				</div>
+			</div>
+		</div>
+		<!--/Footer-top-->
+		<!--Footer-top/bottom-->
+		<div class="footer-top">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-9">
+						<div class="single-widget">
+							<h2>Liên hệ</h2>
+							<ul class="nav nav-pills nav-stacked">
+								<li class="text-footer"><i class="fa fa-map-marker"> Đường xx, Phường xx, Thành phố Quy Nhơn, Tỉnh Bình Định </i></li>
+								<li class="text-footer"><i class="fa fa-phone"> 0898.100.xxx </i></li>
+								<li><a href="https://www.facebook.com/"><i class="fa fa-facebook text-footer"> Fashion shop | Đồng hành cùng bạn mỗi ngày. </i></a></li>
+								<li><a href="https://www.instagram.com/"><i class="fa fa-instagram text-footer"> Fashion shop </i></a></li>
+								<li class="text-footer"><i class="fa fa-envelope-o"> fashionshop&#64;gmail.com </i></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-sm-3">
+						<div class="single-widget">
+							<h2>Chính sách</h2>
+							<ul class="nav nav-pills nav-stacked">
+								<li class="text-footer"><i class="fa fa-check-square-o"> Chính sách thanh toán </i></li>
+								<li class="text-footer"><i class="fa fa-check-square-o"> Chính sách bảo hành, đổi trả </i></li>
+								<li class="text-footer"><i class="fa fa-check-square-o"> Chính sách giao, nhận và kiểm hàng </i></li>
+								<li class="text-footer"><i class="fa fa-check-square-o"> Chính sách bảo mật thông tin </i></li>
+								<li class="text-footer"><i class="fa fa-check-square-o"> Chính sách mua hàng </i></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--Footer-widget-->
+
+	</footer>
+	<!--/Footer-->
+
+
+
+	<script src="~/js/jquery.js"></script>
+	<script src="~/js/bootstrap.min.js"></script>
+	<script src="~/js/jquery.scrollUp.min.js"></script>
+	<script src="~/js/price-range.js"></script>
+	<script src="~/js/jquery.prettyPhoto.js"></script>
+	<script src="~/js/main.js"></script>
+	<script src="~/backend/js/site.js"></script>
+	@await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

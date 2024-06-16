@@ -1,0 +1,163 @@
+﻿@model PaginatedList<FashionShop.Models.OrderModel>;
+
+@{
+    ViewData["Title"] = "Đơn hàng của tôi";
+}
+
+<div class="category-tab">
+    <!--category-tab-->
+    <div class="col-sm-12">
+        <ul class="nav nav-tabs">
+            <li><a asp-action="Info">Thông tin tài khoản</a></li>
+            <li class="active"><a asp-action="Order">Đơn hàng của tôi</a></li>
+        </ul>
+    </div>
+    <div class="tab-content">
+        <div class="tab-pane fade active in">
+            <div class="col-sm-12">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col" width="15%">Mã đơn hàng</th>
+                            <th scope="col" width="10%"><a asp-action="Order" asp-route-sortOrder="@ViewData["DateSortParm"]">Ngày tạo</a></th>
+                            <th scope="col">Hình thức thanh toán</th>
+                            <th scope="col">Thanh toán</th>
+                            <th scope="col"></th>
+                            <th scope="col"><a asp-action="Order" asp-route-sortOrder="@ViewData["StatusSortParm"]">Trạng thái</a></th>
+                            <th scope="col"></th>
+                            <th scope="col">Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    @if (Model?.Any() == true)
+                    {
+                        foreach (var item in Model)
+                        {
+                            <tr>
+                                <th scope="row">@item.OrderCode</th>
+                                <td>@item.CreatedDate</td>
+                                <td>
+                                @if (@item.Paymenttype == 1)
+                                {
+                                        <span class="text text-success">Thanh toán khi nhận hàng</span>
+                                }
+                                @if (@item.Paymenttype == 2)
+                                {
+                                        <span class="text text-success">Thanh toán bằng tài khoản ngân hàng</span>
+                                }
+                                </td>
+
+                                @if (@item.PaymentStatus == 0 && @item.Paymenttype == 2)
+                                {
+                                    <td>
+                                        <span class="text text-danger">Chưa thanh toán</span>
+                                    </td>
+                                    @if (@item.Status != 3)
+                                    {
+                                        <td>
+                                            <a class="btn btn-danger" asp-controller="Checkout" asp-action="ThanhToan" asp-route-OrderCode="@item.OrderCode">Thanh toán</a>
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td></td>   
+                                    }
+                                    }
+                                @if (@item.PaymentStatus == 1)
+                                {
+                                    <td>
+                                        <span class="text text-success">Đã thanh toán</span>
+                                    </td>
+                                    <td>
+                                    </td>
+                                }
+                                @if (@item.Paymenttype == 1)
+                                {
+                                    <td>
+                                        <span class="text text-danger">Chưa thanh toán</span>
+                                    </td>
+                                    @if(@item.Status == 0)
+                                    {
+                                        <td>
+                                            <a class="btn btn-success btn-sm" style="background-color: #001a76" asp-controller="Checkout" asp-action="ExchangePayment" asp-route-OrderCode="@item.OrderCode">Đổi hình thức <br /> thanh toán</a>
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td></td>
+                                    }
+                                    }
+                                @if (@item.Status == 0)
+                                {
+                                    <td>
+                                        <span class="text text-danger">Chờ duyệt</span>
+                                    </td>
+                                     <td align="center">
+                                        <a class="btn btn-danger confirmDeletion" asp-action="Status" asp-route-OrderCode="@item.OrderCode" asp-route-status="3">Hủy đơn hàng</a>
+                                    </td>
+                                }
+                                @if (@item.Status == 1)
+                                {
+                                    <td>
+                                        <span class="text text-success">Đang tiến hành</span>
+                                    </td>
+                                    <td></td>
+                                }
+                                @if (@item.Status == 2)
+                                {
+                                    <td>
+                                        <span class="text text-primary">Đã hoàn thành</span>
+                                    </td>
+                                    <td></td>
+                                }
+                                @if (@item.Status == 3)
+                                {
+                                    <td>
+                                        <span class="text text-danger">Đã hủy</span>
+                                    </td>
+                                    <td></td>
+                                }
+                                <td align="right">
+                                    <a class="btn btn-warning btn-sm" asp-action="ViewOrder" asp-route-OrderCode="@item.OrderCode">Xem đơn hàng</a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="8">
+                                <div class="col-sm-12">
+                                    Bạn chưa có đơn hàng nào!
+                                </div>
+
+                            </td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+                <div class="Pagination">
+                    @{
+                        var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+                        var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+                    }
+
+                    <a asp-action="Index"
+                       asp-route-sortOrder="@ViewData["CurrentSort"]"
+                       asp-route-pageNumber="@(Model.PageIndex - 1)"
+                       asp-route-currentFilter="@ViewData["CurrentFilter"]"
+                       class="btn btn-default @prevDisabled">
+                        Previous
+                    </a>
+                    <a asp-action="Index"
+                       asp-route-sortOrder="@ViewData["CurrentSort"]"
+                       asp-route-pageNumber="@(Model.PageIndex + 1)"
+                       asp-route-currentFilter="@ViewData["CurrentFilter"]"
+                       class="btn btn-default @nextDisabled">
+                        Next
+                    </a>
+                </div>
+             </div>
+        </div>
+    </div>
+</div><!--/category-tab-->

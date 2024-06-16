@@ -1,0 +1,57 @@
+﻿@{
+	ViewData["Title"] = "Liên hệ";
+}
+
+<div id="contact-page" class="container">
+	<div class="bg">
+		<div class="row">
+			<h2 class="title text-center">Liên hệ với chúng tôi</h2>
+		</div>
+		<div class="row">
+			<div class="col-sm-8">
+				<div class="contact-form">
+					<h2 class="title text-center">Thông tin liên hệ của bạn</h2>
+					<div class="status alert alert-success" style="display: none"></div>
+					<form id="main-contact-form" class="contact-form row" name="contact-form" method="post">
+						<div class="form-group col-md-6">
+							<input type="text" name="name" class="form-control" required="required" placeholder="Họ tên">
+						</div>
+						<div class="form-group col-md-6">
+							<input type="email" name="email" class="form-control" required="required" placeholder="Email">
+						</div>
+						<div class="form-group col-md-12">
+							<input type="text" name="subject" class="form-control" required="required" placeholder="Chủ đề">
+						</div>
+						<div class="form-group col-md-12">
+							<textarea name="message" id="message" required="required" class="form-control" rows="8" placeholder="Thông tin phản hồi (vấn đề) của bạn"></textarea>
+						</div>
+						<div class="form-group col-md-12">
+							<input type="submit" name="submit" class="btn btn-success pull-right" value="Gửi">
+						</div>
+					</form>
+				</div>
+			</div>
+			<div class="col-sm-4">
+				<div class="contact-info">
+					<h2 class="title text-center">Thông tin liên hệ</h2>
+					<address>
+						<p class="text-footer">Fashion shop - HTK</p>
+						<p><i class="fa fa-map-marker text-footer"> Địa chỉ: Đường xx, Phường xx, Thành phố Quy Nhơn, Tỉnh Bình Định </i></p>
+						<p><i class="fa fa-phone text-footer"> Phone number: 0898.100.xxx </i></p>
+						<p><i class="fa fa-envelope-o text-footer"> Email: fashionshop&#64;gmail.com </i></p>
+					</address>
+					<div class="social-networks">
+						<ul>
+							<li>
+								<a href="https://www.facebook.com/"><i class="fa fa-facebook text-footer"> Fashion shop </i></a>
+							</li>
+							<li>
+								<a href="https://www.instagram.com/"><i class="fa fa-instagram text-footer"> Fashion shop </i></a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div><!--/#contact-page-->

@@ -1,0 +1,68 @@
+﻿@model SanPhamModel
+
+@{
+    ViewData["title"] = "Thêm sản phẩm";
+}
+
+<h4>Thêm sản phẩm</h4>
+<div class="col-sm-12">
+<!--multipart/form-data -> thêm hình ảnh-->
+    <form asp-action="Create" enctype="multipart/form-data" >
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <!--Slug tạo tự động-->
+        <div class="form-group">
+            <lable>Tên sản phẩm</lable>
+            <input asp-for="Name" class="form-control"/>
+            <span asp-validation-for="Name" class="text-danger"/>
+        </div>
+        <div class="form-group">
+            <lable>Mô tả</lable>
+            <textarea asp-for="Description" class="form-control"></textarea>
+            <span asp-validation-for="Description" class="text-danger"/>
+        </div>
+        <div class="form-group">
+            <lable>Giá</lable>
+            <input asp-for="Price" class="form-control"/>
+            <span asp-validation-for="Price" class="text-danger"/>
+        </div>
+        <div class="form-group">
+            <lable>Danh mục</lable>
+            <select asp-for="DanhMucId" class="=form-control" asp-items="ViewBag.DanhMucs">
+                <option>--Danh mục--</option>
+            </select>
+            <span asp-validation-for="DanhMucId" class="text-danger"/>
+        </div>
+        <div class="form-group">
+            <lable>Thương hiệu</lable>
+            <select asp-for="ThuongHieuId" class="=form-control" asp-items="ViewBag.ThuongHieus">
+                <option>--Thương hiệu--</option>
+            </select>
+            <span asp-validation-for="ThuongHieuId" class="text-danger"/>
+        </div>
+        <div class="form-group">
+            <lable>Ảnh</lable>
+            <input asp-for="ImageUpload" class="form-control" />
+            <span asp-validation-for="ImageUpload" class="text-danger" />
+            <!--Xem trước ảnh upload-->
+            <img id="imgpreview" class="pt-2" />
+        </div>
+        <div class="form-group">
+            <button class="btn btn-primary">Thêm</button>
+        </div>
+    </form>
+    <div class="col-sm-12">
+        <div class="shop-menu pull-right">
+            <a class="btn btn-warning btn-sm" asp-action="Index">Hủy</a>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        $("#ImageUpload").change(function () {
+            readURL(this);
+        })
+    </script>
+}

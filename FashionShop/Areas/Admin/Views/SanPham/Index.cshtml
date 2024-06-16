@@ -1,0 +1,89 @@
+﻿@model PaginatedList<FashionShop.Models.SanPhamModel>;
+@* @model IEnumerable<SanPhamModel> *@
+
+@{
+    ViewData["title"] = "Quản lý sản phẩm";
+}
+<h3>Danh sách sản phẩm</h3>
+<div>
+    <div class="col-sm-6">
+        <a class="btn btn-success btn-sm" asp-action="Create" asp-controller="SanPham">Thêm sản phẩm</a>
+    </div>
+    <div class="col-sm-6">
+        <form asp-controller="SanPham" asp-action="Index" method="get">
+            <div class="search_box pull-right">
+                <input type="text" name="SearchString" placeholder="Search..." value="@ViewData["CurrentFilter"]" />
+                <button class="btn btn-success" type="submit">Tìm kiếm</button>
+            </div>
+        </form>
+    </div>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col" width="5%">#</th>
+            <th scope="col" width="15%"><a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]">Tên sản phẩm</a></th>
+            <th scope="col" width="25%">Mô tả</th>
+            <th scope="col" width="5%"><a asp-action="Index" asp-route-sortOrder="@ViewData["PriceSortParm"]">Giá</a></th>
+            <th scope="col" width="10%">Ảnh</th>
+            <th scope="col" width="10%"><a asp-action="Index" asp-route-sortOrder="@ViewData["DanhMucSortParm"]">Danh mục</a></th>
+            <th scope="col" width="10%"><a asp-action="Index" asp-route-sortOrder="@ViewData["ThuongHieuSortParm"]">Thương hiệu</a></th>
+            <th scope="col" width="20%">Thao tác</th>
+        </tr>
+    </thead>
+    <tbody>
+       @if(Model?.Any() == true)
+	    {	
+            @foreach(var item in Model)
+            {
+               
+                <tr>
+                    <th scope="row">@item.Id</th>
+                    <td>@item.Name</td>
+                    <td>@item.Description</td>
+                    <td>@item.Price.ToString("#,##.000 VND")</td>
+                    <td><img src="~/images/SanPhams/@item.Image" width="100px" height="100px" /></td>
+                    <td>@item.DanhMuc.Name</td>
+                    <td>@item.ThuongHieu.Name</td>
+                    <td>
+                        <a class="btn btn-success btn-sm" asp-area="Admin" asp-action="Details" asp-controller="SanPham" asp-route-Id="@item.Id">Xem</a>
+                        <a class="btn btn-warning btn-sm" asp-action="Edit" asp-controller="SanPham" asp-route-Id="@item.Id">Chỉnh sửa</a>
+                        <a class="btn btn-danger btn-sm confirmDeletion" asp-action="Delete" asp-controller="SanPham" asp-route-Id="@item.Id">Xóa</a>
+                    </td>
+                </tr>               
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="8">
+                    <div class="col-sm-12">
+                        Không tồn tại sản phẩm này trong danh sách.
+                    </div>
+
+                </td> 
+            </tr>
+         }
+    </tbody>
+</table>
+<div class="Pagination">
+    @{
+        var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+        var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+    }
+
+    <a asp-action="Index"
+       asp-route-sortOrder="@ViewData["CurrentSort"]"
+       asp-route-pageNumber="@(Model.PageIndex - 1)"
+       asp-route-currentFilter="@ViewData["CurrentFilter"]"
+       class="btn btn-default @prevDisabled">
+        Previous
+    </a>
+    <a asp-action="Index"
+       asp-route-sortOrder="@ViewData["CurrentSort"]"
+       asp-route-pageNumber="@(Model.PageIndex + 1)"
+       asp-route-currentFilter="@ViewData["CurrentFilter"]"
+       class="btn btn-default @nextDisabled">
+        Next
+    </a>
+</div>

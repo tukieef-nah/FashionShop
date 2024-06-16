@@ -1,0 +1,117 @@
+﻿@model DetailsOrderViewModel;
+
+@{
+    ViewData["title"] = "Chi tiết hóa đơn";
+}
+
+<h4><b>Chi tiết hóa đơn</b></h4>
+<div class="table-responsive cart_info">
+    <div class="form-group">
+        <tr scope="row"><h5><b> Mã hóa đơn : </b> @Model.Orders.OrderCode</h5></tr>
+    </div>
+    <div class="form-group">
+        <tr scope="row"><h5><b> Ngày tạo : </b> @Model.Orders.CreatedDate</h5></tr>
+    </div>
+    <div class="form-group">
+        <tr scope="row"><h5><b> Tên khách hàng : </b> @Model.NameAccount</h5></tr>
+    </div>
+    <div class="form-group">
+        <tr scope="row"><h5><b> Số điện thoại : </b> @Model.Phone</h5></tr>
+    </div>
+    <div class="form-group">
+        <tr scope="row"><h5><b> Địa chỉ : </b> @Model.Address</h5></tr>
+    </div>
+    <div class="form-group">
+        <tr scope="row">
+            <h5>
+                <b> Hình thức thanh toán : </b>
+                @if (@Model.Orders.Paymenttype == 1)
+                {
+                    <span class="text text-success">Thanh toán khi nhận hàng</span>
+                }
+                @if (@Model.Orders.Paymenttype == 2)
+                {
+                    <span class="text text-success">Thanh toán bằng tài khoản ngân hàng</span>
+                }
+            </h5>
+        </tr>
+    </div>
+    <div class="form-group">
+        <tr scope="row">
+            <h5>
+                <b> Trạng thái thanh toán : </b>
+                @if (@Model.Orders.PaymentStatus == 0)
+                {
+                    <span class="text text-danger">Chưa thanh toán</span>
+                }
+                @if (@Model.Orders.PaymentStatus == 1)
+                {
+                    <span class="text text-success">Đã thanh toán</span>
+                }
+            </h5>
+        </tr>
+    </div>
+    <div class="form-group">
+        <tr scope="row">
+            <h5>
+                <b> Trạng thái hóa đơn : </b>
+                @if (@Model.Orders.Status == 0)
+                {
+                    <span class="text text-danger">Chờ duyệt</span>
+                }
+                @if (@Model.Orders.Status == 1)
+                {
+                    <span class="text text-success">Đang tiến hành</span>
+                }
+                @if (@Model.Orders.Status == 2)
+                {
+                    <span class="text text-success">Đã hoàn thành</span>
+                }
+                @if (@Model.Orders.Status == 3)
+                {
+                    <span class="text text-danger">Đã hủy</span>
+                }
+            </h5>
+        </tr>
+    </div>
+    <div class="form-group">
+        <tr scope="row"><h4><b> Thông tin hóa đơn : </b></h4></tr>
+    </div>
+
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Tên sản phẩm</th>
+                <th scope="col">Id sản phẩm</th>
+                <th scope="col"></th>
+                <th scope="col">Đơn giá</th>
+                <th scope="col">Số lượng</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.OrderDetails)
+            {
+                <tr>
+                    <td scope="row">@item.Id</td>
+                    <td scope="row">@item.SanPham.Name</td>
+                    <td scope="row">@item.SanPhamId</td>
+                    <td>
+                        <img src="~/images/SanPhams/@item.SanPham.Image" width="100px" height="100px" alt="@item.SanPham.Name">
+                    </td>
+                    <td scope="row">@item.SanPham.Price.ToString("#,##.000 VND")</td>
+                    <td scope="row">@item.Quantity</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div>
+        <p class="cart_total_price"><h4><b> Tổng tiền : </b>@Model.OrderDetails.Sum(x => x.Quantity * x.SanPham.Price).ToString("#,##.000 VND")</h4></p>
+    </div>
+    <div class="col-sm-12" style="margin-bottom: 15px; margin-top: 20px;">
+        <div class="shop-menu pull-right">
+            <a class="btn btn-warning btn-sm" asp-action="Order">Quay lại</a>
+        </div>
+    </div>
+</div>

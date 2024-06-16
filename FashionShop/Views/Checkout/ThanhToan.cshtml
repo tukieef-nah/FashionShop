@@ -1,0 +1,57 @@
+﻿@model ThanhToan
+
+@{
+	ViewData["Title"] = "Thanh toán đơn hàng";
+}
+
+<section id="cart_items">
+	<div class="container">
+		<div class="breadcrumbs">
+			<ol class="breadcrumb">
+				<li><a asp-controller="Home">Trang chủ</a></li>
+				<li><a asp-controller="GioHang">Giỏ hàng</a></li>
+				<li><a asp-controller="">Đặt hàng</a></li>
+				<li class="active">Thanh toán</li>
+			</ol>
+		</div>
+		<div class="table-responsive cart_info">
+            <div> Thông tin thanh toán: </div>
+            <div>
+                <p class="title-info">
+                    <b>Mã đơn hàng : </b>
+                </p>
+                <input class="info" disabled type="text" value="@Model.OrderCode" />
+            </div>
+            <div>
+				<p class="title-info">
+					<b>Tên khách hàng : </b>
+				</p>
+				<input class="info" disabled type="text" name="nameaccount" value="@Model.NameAccount" />
+			</div>
+            <div>
+				<p class="title-info">
+					<b>Hình thức thanh toán thanh toán : </b>
+				</p>
+				@if(@Model.Paymenttype == 1)
+				{
+					<input class="info" disabled type="text" name="username" value="Thanh toán khi nhận hàng" />
+				}
+				else
+				{
+					<input class="info" disabled type="text" name="username" value="Thanh toán bằng tài khoản ngân hàng" />
+				}
+			</div>
+            <div>
+				<p class="title-info">
+					<b>Tổng tiền thanh toán : </b>
+				</p>
+				<input class="info" disabled type="text" name="username" value="@Model.GrandTotal" />
+			</div>
+			<div>
+				<a class="btn btn-danger btn-sm confirmDeletion" style="background-color: cornflowerblue" asp-controller="Checkout" asp-action="ExchangePayment" asp-route-OrderCode="@Model.OrderCode">Đổi thành thanh toán khi nhận hàng </a>
+				<a class="btn btn-danger btn-sm confirmDeletion" style="background-color: cornflowerblue" asp-controller="Account" asp-action="Order"> Thanh toán sau </a>
+				<a class="btn btn-success" asp-controller="Checkout" asp-action="Paid" asp-route-OrderCode="@Model.OrderCode"> Thanh toán </a>
+            </div>
+		</div>
+	</div>
+</section>

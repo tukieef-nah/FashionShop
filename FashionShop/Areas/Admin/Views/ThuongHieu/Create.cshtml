@@ -1,0 +1,43 @@
+﻿@model DanhMucModel
+
+@{
+    ViewData["title"] = "Thêm thương hiệu";
+}
+
+<h4>Thêm thương hiệu</h4>
+<div class="col-sm-12">
+    <form asp-action="Create" enctype="multipart/form-data">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <lable>Tên thương hiệu</lable>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger" />
+        </div>
+        <div class="form-group">
+            <lable>Mô tả</lable>
+            <textarea asp-for="Description" class="form-control"></textarea>
+            <span asp-validation-for="Description" class="text-danger" />
+        </div>
+        <div class="form-group">
+            <lable>Trạng thái</lable>
+            <select asp-for="Status" class="=form-control" asp-items="ViewBag.ThuongHieus">
+                <option value="1">Hiển thị</option>
+                <option value="0">Ẩn</option>
+            </select>
+            <span asp-validation-for="Status" class="text-danger" />
+        </div>
+        <div class="form-group">
+            <button class="btn btn-primary">Thêm</button>
+        </div>
+    </form>
+    <div class="col-sm-12">
+        <div class="shop-menu pull-right">
+            <a class="btn btn-warning btn-sm" asp-action="Index">Hủy</a>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

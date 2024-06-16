@@ -1,0 +1,96 @@
+﻿@model InfoCheckout
+
+@{
+	ViewData["Title"] = "Đặt hàng";
+}
+
+<section id="cart_items">
+	<div class="container">
+		<div class="breadcrumbs">
+			<ol class="breadcrumb">
+				<li><a asp-controller="Home">Trang chủ</a></li>
+				<li><a asp-controller="GioHang">Giỏ hàng</a></li>
+				<li class="active">Đặt hàng</li>
+			</ol>
+		</div>
+		<div class="table-responsive cart_info">
+            <h4><b> Thông tin đơn hàng: </b></h4>
+			<div>
+				<p class="title-info">
+                    <b>Tên khách hàng : </b>@Model.NameAccount
+				</p>
+			</div>
+			<div>
+				<p class="title-info">
+					<b>Số điện thoại : </b> @Model.PhoneNumber
+				</p>
+			</div>
+			<div>
+				<p class="title-info">
+					<b>Địa chỉ nhận hàng : </b> @Model.Address
+				</p>
+			</div>
+			<table class="table table-condensed">
+				<thead>
+					<tr class="cart_menu">
+						<td class="image" width="20%">Sản phẩm</td>
+						<td class="image" width="20%"></td>
+						<td class="price" width="15%" align="center">Đơn giá</td>
+						<td class="quantity" width="15%" align="center">Số lượng</td>
+						<td class="total" width="15%" align="center">Số tiền</td>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (var item in Model.GioHangItems)
+					{
+						<tr>
+							<td class="cart_product">
+								<img src="~/images/SanPhams/@item.Image" width="100px" height="100px" alt="@item.Name">
+							</td>
+							<td class="cart_description">
+								<h4>@item.Name</h4>
+							</td>
+							<td class="cart_price">
+								<p>@item.Price.ToString("#,##.000 VND")</p>
+							</td>
+							<td class="cart_quantity" align="center">
+								<h4>@item.Quantity</h4>
+							</td>
+							<td class="cart_total">
+								<p class="cart_total_price">@Model.GioHangItems.Where(x => x.Id == item.Id).Sum(x => x.Quantity * x.Price).ToString("#,##.000 VND")</p>
+							</td>
+						</tr>
+					}
+					<form action="/Checkout/Checkout" method="post">
+						<tr>
+							<td>
+								<lable><b> Hình tức thanh toán </b></lable>
+								<select asp-for="Paymenttype" name="Paymenttype" class="=form-control">
+									<option value="1">Thanh toán khi nhận hàng</option>
+									<option value="2">Thanh toán bằng tài khoản ngân hàng</option>
+								</select>
+								<span asp-validation-for="Paymenttype" class="text-danger" />
+							</td>
+						</tr>
+						<tr>
+							<td colspan="4">
+								<b>Tổng tiền: </b><p class="cart_total_price">@Model.GrandTotal.ToString("#,##.000 VND")</p>
+							</td>
+							<td align="center">
+								<a class="btn btn-success btn-sm" asp-action="Index"> Quay lại </a>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								@if (User.Identity?.IsAuthenticated ?? false)
+								{
+									<button class="btn btn-danger btn-sm" style="background-color: cornflowerblue" type="submit"> Đặt hàng </button>
+								}
+							</td>
+						</tr>
+					</form>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</section>

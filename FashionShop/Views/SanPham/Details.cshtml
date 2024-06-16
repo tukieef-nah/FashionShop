@@ -1,0 +1,49 @@
+﻿@model SanPhamModel
+
+@{
+	ViewData["Title"] = "Chi tiết sản phẩm";
+}
+
+<div class="row">
+	<div class="col-sm-3">
+		@Html.Partial("_SidebarPartial")
+	</div>
+
+	<div class="col-sm-9 padding-right">
+        <!--product-details-->
+        <div class="product-details">
+			<div class="col-sm-5">
+				<div class="view-product">
+					<img src="/images/SanPhams/@Model.Image" alt="@Model.Name" alt="@Model.Name" />
+				</div>
+			</div>
+
+            <!--/product-information-->
+            <div class="col-sm-7">
+                <div class="product-information">
+					@* <img src="images/@Model.Image" class="newarrival" alt="@Model.Name" /> *@
+					<h2>@Model.Name</h2>
+					@* <img src="images/@Model.Image" alt="@Model.Name" /> *@
+					<span>
+						<span>@Model.Price.ToString("#,##.000 VND")</span>
+					</span>
+						<p><b>Thông tin sản phẩm:</b>@Model.Description</p>
+					<span>
+						<label>Số lượng:</label>
+						<input type="text" name="soLuong" value="1" />
+					</span>
+					<a class="btn btn-default add-to-cart" asp-action="Add" asp-controller="GioHang" asp-route-Id="@Model.Id" type="button" class="btn btn-fefault cart">
+						<i class="fa fa-shopping-cart"></i>
+						Thêm vào giỏ hàng
+					</a>
+					<p><b>Tình trạng:</b> Còn hàng</p>
+					<p><b>Danh mục:</b> @Model.DanhMuc.Name</p>
+					<p><b>Thương hiệu:</b> @Model.ThuongHieu.Name</p>
+					<a href=""><img src="images/product-details/share.png" class="share img-responsive" alt="" /></a>
+				</div>
+				<!--/product-information-->
+			</div>
+		</div>
+		<!--/product-details-->
+	</div>
+</div>

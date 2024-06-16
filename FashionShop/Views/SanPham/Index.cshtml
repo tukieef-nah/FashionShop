@@ -1,0 +1,83 @@
+﻿@{
+	ViewData["Title"] = "Danh sách sản phẩm";
+}
+
+@model PaginatedList<FashionShop.Models.SanPhamModel>
+@* @model IEnumerable<SanPhamModel> *@
+
+<div class="col-sm-3">
+	@Html.Partial("_SidebarPartial")
+</div>
+
+<div class="col-sm-9 padding-right">
+	<!--features_items-->
+	<div class="features_items">
+		<div>
+			<div class="col-sm-12">
+                <h2 class="title text-center">Sản phẩm dành cho bạn</h2>
+			</div>
+			<div class="col-sm-12">
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["PriceSortParm"]"><i class="btn btn-success fa fa-unsorted">Sắp xếp theo giá</i></a>
+			</div>
+		</div>
+		@if(Model?.Any() == true)
+	    {
+			@foreach (var item in Model)
+			{
+				<div class="col-sm-4">
+					<div class="product-image-wrapper">
+						<div class="single-products">
+							<div class="productinfo text-center">
+								<a asp-action="Details" asp-route-Id="@item.Id">
+									<img src="/images/SanPhams/@item.Image" alt="" width="100px" height="250px" alt="@item.Name" />
+									<h2>@item.Price.ToString("#,##.000 VND")</h2>
+									<p>@item.Name</p>
+								</a>
+								<a class="btn btn-default add-to-cart" asp-action="Add" asp-controller="GioHang" asp-route-Id="@item.Id"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ hàng</a>
+							</div>
+						</div>
+						<div class="choose">
+							<ul class="nav nav-pills nav-justified">
+								<li><a href="#"><i class="fa fa-heart-o"></i> Thêm vào yêu thích </a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			}
+		}
+		else
+		{
+			<tr>
+				<td colspan="8">
+					<div class="col-sm-12">
+						Không tồn tại sản phẩm này trong shop.
+					</div>
+
+				</td>
+			</tr>
+		}
+		<div class="col-sm-9 Pagination">
+
+			@{
+				var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+				var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+			}
+
+			<a asp-action="Index"
+				asp-route-sortOrder="@ViewData["CurrentSort"]"
+				asp-route-pageNumber="@(Model.PageIndex - 1)"
+				asp-route-currentFilter="@ViewData["CurrentFilter"]"
+				class="btn btn-default @prevDisabled">
+				Previous
+			</a>
+			<a asp-action="Index"
+				asp-route-sortOrder="@ViewData["CurrentSort"]"
+				asp-route-pageNumber="@(Model.PageIndex + 1)"
+				asp-route-currentFilter="@ViewData["CurrentFilter"]"
+				class="btn btn-default @nextDisabled">
+				Next
+			</a>
+        </div>
+    </div>
+    <!--features_items-->
+</div>

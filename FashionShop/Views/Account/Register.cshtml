@@ -1,0 +1,72 @@
+﻿@model UserModel
+
+
+@{
+	ViewData["Title"] = "Đăng ký tài khoản";
+}
+<section id="">
+	<!--form-->
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-4">
+			</div>
+			<div class="col-sm-4">
+                <!--sign up form-->
+                <div class="signup-form">
+					<h2>Đăng ký tài khoản mới</h2>
+					<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+					<form asp-action="Register" asp-controller="Account">
+						<div class="form-group">
+							<lable>Họ tên:</lable>
+							<input asp-for="NameAccount" class="form-control" />
+							<span asp-validation-for="NameAccount" class="text-danger"></span>
+						</div>
+						<div class="form-group">
+							<lable>Email</lable>
+							<input asp-for="Email" class="form-control" />
+							<span asp-validation-for="Email" class="text-danger"></span>
+						</div>
+						<div class="form-group">
+							<lable>Số điện thoại</lable>
+							<input asp-for="PhoneNumber" class="form-control" />
+							<span asp-validation-for="PhoneNumber" class="text-danger"></span>
+						</div>
+						<div class="form-group">
+							<lable>Địa chỉ</lable>
+							<input asp-for="Address" class="form-control" />
+							<span asp-validation-for="Address" class="text-danger"></span>
+						</div>
+
+
+                        <div class="form-group">
+                            <lable>Tên đăng nhập</lable>
+                            <input asp-for="UserName" class="form-control" />
+                            <span asp-validation-for="UserName" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+							<lable>Mật khẩu</lable>
+							<input asp-for="Password" class="form-control" />
+							<span asp-validation-for="Password" class="text-danger"></span>
+						</div>
+						<div class="form-group">
+							<lable>Xác nhận mật khẩu</lable>
+							<input asp-for="RePassword" type="password" class="form-control" />
+							<span asp-validation-for="RePassword" class="text-danger"></span>
+						</div>
+						<div class="form-group">
+							<button type="submit" class="btn btn-success">Đăng ký</button>
+						</div>
+					</form>
+					<div style="margin-bottom: 15px">
+                        <a class="Pagination" asp-action="Login" asp-controller="Account">Tôi đã có tài khoản, chuyển sang đăng nhập</a>
+					</div>
+                </div><!--/sign up form-->
+			</div>
+		</div>
+	</div>
+</section><!--/form-->
+@section Scripts {
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+}

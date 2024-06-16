@@ -1,0 +1,100 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<title>@ViewData["title"] - Admin | Fashion shop</title>
+
+	<link href="~/css/bootstrap.min.css" rel="stylesheet">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.1/css/font-awesome.css" rel="stylesheet">
+	<link href="~/css/prettyPhoto.css" rel="stylesheet">
+	<link href="~/css/price-range.css" rel="stylesheet">
+	<link href="~/css/animate.css" rel="stylesheet">
+	<link href="~/css/main2.css" rel="stylesheet">
+	<link href="~/css/responsive.css" rel="stylesheet">
+
+	<link rel="shortcut icon" href="images/ico/favicon.ico">
+	<link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/ico/apple-touch-icon-144-precomposed.png">
+	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
+	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
+	<link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
+</head>
+
+<body>
+	<!--header-->
+	<header id="header">
+		<!--header-middle-->
+		<div class="header-middle">
+			<div class="container">
+				<div class="col-sm-12">
+					<div class="shop-menu pull-right">
+						<ul class="nav navbar-nav">
+							<li><a asp-controller="Account" asp-action="Logout"><i class="fa fa-sign-out"> Đăng xuất </i> </a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--/header-middle-->
+		<!--header-bottom-->
+		<div class="header-bottom">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-9">
+						<div class="navbar-header">
+							<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+								<span class="sr-only">Toggle navigation</span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+							</button>
+						</div>
+						<div class="mainmenu pull-left">
+							<ul class="nav navbar-nav collapse navbar-collapse">
+								<li><a asp-controller="User" asp-action="index"><i class="fa"> Quản lý Users </i></a></li>
+								<li><a asp-controller="SanPham" asp-action="index"><i class="fa"> Quản lý sản phẩm </i></a></li>
+								<li><a asp-controller="Order" asp-action="index"><i class="fa"> Quản lý đơn hàng </i></a></li>
+								<li><a asp-controller="DanhMuc" asp-action="index"><i class="fa"> Quản lý danh mục </i></a></li>
+								<li><a asp-controller="ThuongHieu" asp-action="index"><i class="fa"> Quản lý thương hiệu </i></a></li>
+							</ul>
+						</div>
+					</div>		
+				</div>
+			</div>
+		</div>
+		<!--/header-bottom-->
+	</header>
+	<!--/header-->
+
+	<section>
+		<div class="container">
+			<div class="row">
+				@Html.Partial("_NotificationPartial")
+				@RenderBody()
+			</div>
+		</div>
+	</section>
+
+
+	<!--Footer-->
+	<footer id="footer">
+
+	</footer>
+	<!--/Footer-->
+
+
+
+	<script src="~/js/jquery.js"></script>
+	<script src="~/js/bootstrap.min.js"></script>
+	<script src="~/js/jquery.scrollUp.min.js"></script>
+	<script src="~/js/price-range.js"></script>
+	<script src="~/js/jquery.prettyPhoto.js"></script>
+	<script src="~/js/main.js"></script>
+	<script src="~/backend/js/site.js"></script>
+	<!--Bất đồng bộ khi chạy project thì các script trên sẽ chạy trước và phần này là của các trang khác sẽ chạy sau-->
+	@await RenderSectionAsync("Scripts", required:false)
+</body>
+</html>

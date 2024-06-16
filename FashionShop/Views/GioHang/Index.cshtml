@@ -1,0 +1,82 @@
+﻿@using FashionShop.Models.ViewModels
+@model GioHangItemViewModel
+
+@{
+	ViewData["Title"] = "Giỏ hàng";
+}
+
+<section id="cart_items">
+	<div class="container">
+		<div class="breadcrumbs">
+			<ol class="breadcrumb">
+				<li><a asp-controller="Home">Trang chủ</a></li>
+				<li class="active">Giỏ hàng</li>
+			</ol>
+		</div>
+		<div class="table-responsive cart_info">
+			<table class="table table-condensed">
+				<thead>
+					<tr class="cart_menu">
+						<td class="image" width="20%">Sản phẩm</td>
+						<td class="image" width="20%"></td>
+						<td class="price" width="15%">Đơn giá</td>
+						<td class="quantity" width="15%">Số lượng</td>
+						<td class="total" width="15%">Số tiền</td>
+						<td width="15%">Thao Tác</td>
+					</tr>
+				</thead>
+				<tbody>
+					@if (Model.GioHangItems.Count > 0)
+					{
+						foreach (var item in Model.GioHangItems)
+						{
+
+							<tr>
+								<td class="cart_product">
+									<a asp-action="Details" asp-controller="SanPham" asp-route-Id="@item.Id"><img src="images/SanPhams/@item.Image" width="100px" height="100px" alt="@item.Name"></a>
+								</td>
+								<td class="cart_description">
+									<h4><a asp-action="Details" asp-controller="SanPham" asp-route-Id="@item.Id">@item.Name</a></h4>
+								</td>
+								<td class="cart_price">
+									<p>@item.Price.ToString("#,##.000 VND")</p>
+								</td>
+								<td class="cart_quantity">
+									<a style="background-color: cornflowerblue" class="btn btn-success btn-sm" asp-controller="GioHang" asp-action="Increase" asp-route-id="@item.Id"><i class="fa fa-plus"></i></a>
+									<input class="cart_quantity_input" type="text" name="quantity" value="@item.Quantity" autocomplete="off" size="2">
+									<a class="btn btn-success btn-sm" asp-controller="GioHang" asp-action="Decrease" asp-route-id="@item.Id"><i class="fa fa-minus"></i></a>
+								</td>
+								<td class="cart_total">
+									<p class="cart_total_price">@Model.GioHangItems.Where(x => x.Id == item.Id).Sum(x => x.Quantity * x.Price).ToString("#,##.000 VND")</p>
+								</td>
+								<td class="cart_delete">
+									<a class="btn btn-danger btn-sm confirmDeletion" style=" background-color: darkred" asp-controller="GioHang" asp-action="Remove" asp-route-id="@item.Id"><i class="fa fa-trash-o"> Xóa </i></a>
+								</td>
+							</tr>
+						}
+						<tr>
+							<td colspan="5">
+								<b>Tổng tiền:</b><p class="cart_total_price">@Model.GrandTotal.ToString("#,##.000 VND")</p>
+							</td>
+							<td>
+								<a class="btn btn-danger btn-sm confirmDeletion" asp-controller="GioHang" asp-action="Clear"><i class="fa fa-trash-o"> Xóa tất cả </i></a>
+								@if (User.Identity?.IsAuthenticated ?? false)
+								{
+									<a class="btn btn-danger btn-sm" style="background-color: cornflowerblue" asp-controller="GioHang" asp-action="Checkout"> Đặt hàng </a>
+								}
+							</td>
+						</tr>
+					}
+					else
+					{
+						<tr>
+							<td colspan="6">
+								<h4>Giỏ hàng trống</h4>
+							</td>
+						</tr>
+					}
+				</tbody>
+			</table>
+		</div>
+	</div>
+</section> <!--/#cart_items-->

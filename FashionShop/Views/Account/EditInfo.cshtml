@@ -1,0 +1,72 @@
+﻿@model AppUserModel
+
+@{
+    ViewData["Title"] = "Chỉnh sửa thông tin tài khoản";
+}
+
+<div class="category-tab">
+    <!--category-tab-->
+    <div class="col-sm-12">
+        <ul class="nav nav-tabs">
+            <li class="active"><a asp-controller="Account" asp-action="Index">Thông tin tài khoản</a></li>
+            <li><a asp-controller="Account" asp-action="Order">Đơn hàng của tôi</a></li>
+        </ul>
+    </div>
+    <div class="tab-content">
+        <div class="tab-pane fade active in">
+            <div class="col-sm-12">
+                <form asp-action="EditInfo" enctype="multipart/form-data">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <p class="title-info">
+                            <b>Họ tên : </b>
+                        </p>
+                        <input class="info" asp-for="NameAccount" class="form-control" />
+                        <span asp-validation-for="NameAccount" class="text-danger" />
+                    </div>
+                    <div class="form-group">
+                        <p class="title-info">
+                            <b>Email : </b>
+                        </p>
+                        <input class="info" asp-for="Email" class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger" />
+                    </div>
+                    <div class="form-group">
+                        <p class="title-info">
+                            <b>Số điện thoại : </b>
+                        </p>
+                        <input class="info" asp-for="PhoneNumber" class="form-control" />
+                        <span asp-validation-for="PhoneNumber" class="text-danger" />
+                    </div>
+                    <div class="form-group">
+                        <p class="title-info">
+                            <b>Địa chỉ : </b>
+                        </p>
+                        <input class="info" asp-for="Address" class="form-control" />
+                        <span asp-validation-for="Address" class="text-danger" />
+                    </div>
+                    <div class="form-group">
+                        <p class="title-info">
+                            <b>Tên đăng nhập : </b>
+                        </p>
+                        <input class="info" asp-for="UserName" class="form-control" />
+                        <span asp-validation-for="UserName" class="text-danger" />
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-primary">Lưu</button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-sm-12" style="margin-bottom: 15px">
+                <div class="shop-menu pull-right">
+                    <a class="btn btn-danger btn-sm" asp-action="Info" asp-controller="Account" asp-route-Id="@Model.Id">Hủy</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div><!--/category-tab-->
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
