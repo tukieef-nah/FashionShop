@@ -4,16 +4,9 @@ Nhóm đồ án lớp Công nghệ .Net, sinh viên Trường Đại học Quy N
 
 ## Member introduction
 
-* [Trần Thị Thanh Kiều](https://www.facebook.com/DangDinhVu221) - MSSV:4451051111
-* [Trương Thanh Thu Huệ](https://www.facebook.com/BoyIT2509) - MSSV:4451050838
-* [Hán Thị Triểu](https://www.facebook.com/profile.php?id=100009524366210) - MSSV:4451051008
-
-## Installing
-
-Tải về cài đặt
-
-Phần mềm này yêu cầu máy có cài đặt [jdk 1.8](https://www.oracle.com/java/technologies/downloads/) đổ lên
-nếu máy bạn đã có thì tải phần mềm [tại đây](https://github.com/tukieef-nah/FashionShop/releases/download/V1.5_OpenBeta/FashionShop.zip)
+* [Trần Thị Thanh Kiều](https://www.facebook.com/tukieefnah) - MSSV:4451051111
+* [Trương Thanh Thu Huệ](https://www.facebook.com/thuhue.truong.2210) - MSSV:4451050838
+* [Hán Thị Triểu](https://www.facebook.com/httrieu.2003) - MSSV:4451051008
 
 ## Documents
 
